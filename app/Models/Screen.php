@@ -13,11 +13,15 @@ class Screen extends Model
     protected $fillable = [
         'name',
         'location',
+        'floor',
+        'zone_name',
         'width_px',
         'height_px',
         'description',
         'has_night_version',
         'is_active',
+        'pos_x',
+        'pos_y',
     ];
 
     protected function casts(): array
