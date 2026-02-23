@@ -12,9 +12,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('location')->nullable();
+            $table->string('floor')->nullable();
+            $table->string('zone_name')->nullable();
             $table->unsignedInteger('width_px');
             $table->unsignedInteger('height_px');
             $table->text('description')->nullable();
+            $table->unsignedSmallInteger('pos_x')->default(0);
+            $table->unsignedSmallInteger('pos_y')->default(0);
             $table->boolean('has_night_version')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
