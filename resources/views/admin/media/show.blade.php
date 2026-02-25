@@ -21,9 +21,9 @@
                 <div><dt class="text-sm text-gray-500">Арендатор</dt><dd class="font-medium">{{ $mediaFile->tenant->company_name ?? '—' }}</dd></div>
                 <div><dt class="text-sm text-gray-500">Разрешение</dt><dd class="font-medium">{{ ($mediaFile->width_px ?? 0) }} × {{ ($mediaFile->height_px ?? 0) }}</dd></div>
                 <div><dt class="text-sm text-gray-500">Длительность</dt><dd class="font-medium">{{ $mediaFile->duration_sec ?? '—' }} сек</dd></div>
-                <div><dt class="text-sm text-gray-500">Размер</dt><dd class="font-medium">{{ number_format($mediaFile->file_size_mb ?? 0, 2) }} MB</dd></div>
+                <div><dt class="text-sm text-gray-500">Размер</dt><dd class="font-medium">{{ number_format($mediaFile->file_size_mb ?? 0, 2) }} МБ</dd></div>
                 <div><dt class="text-sm text-gray-500">Кодек</dt><dd class="font-medium">{{ $mediaFile->codec ?? '—' }}</dd></div>
-                <div><dt class="text-sm text-gray-500">FPS</dt><dd class="font-medium">{{ $mediaFile->fps ?? '—' }}</dd></div>
+                <div><dt class="text-sm text-gray-500">Кадр/с</dt><dd class="font-medium">{{ $mediaFile->fps ?? '—' }}</dd></div>
                 <div><dt class="text-sm text-gray-500">Статус</dt>
                     <dd>
                         <span class="inline-flex rounded-full px-2 py-1 text-xs font-medium

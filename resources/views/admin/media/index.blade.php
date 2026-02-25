@@ -36,7 +36,7 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $item->tenant->company_name ?? '—' }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ ($item->width_px ?? 0) }} × {{ ($item->height_px ?? 0) }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $item->duration_sec ?? '—' }} сек</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ number_format($item->file_size_mb ?? 0, 2) }} MB</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ number_format($item->file_size_mb ?? 0, 2) }} МБ</td>
                         <td class="px-6 py-4">
                             @php $statusName = $item->status->name ?? '—'; @endphp
                             <span class="inline-flex rounded-full px-2 py-1 text-xs font-medium

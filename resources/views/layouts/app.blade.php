@@ -25,7 +25,8 @@
                 <nav class="hidden lg:flex items-center gap-1">
                     <a href="{{ route('home') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('home') ? 'text-white bg-surface-lighter' : '' }}">Главная</a>
                     <a href="{{ route('events.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('events.*') ? 'text-white bg-surface-lighter' : '' }}">Мероприятия</a>
-                    <a href="{{ route('screens.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('screens.*') ? 'text-white bg-surface-lighter' : '' }}">Рекламные экраны</a>
+                    <a href="{{ route('screens.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('screens.index') ? 'text-white bg-surface-lighter' : '' }}">Рекламные экраны</a>
+                    <a href="{{ route('screens.map') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('screens.map') ? 'text-white bg-surface-lighter' : '' }}">Схема экранов</a>
                     <a href="{{ route('about') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-lighter {{ request()->routeIs('about') ? 'text-white bg-surface-lighter' : '' }}">О ТРЦ</a>
                     <a href="{{ route('event-request.create') }}" class="ml-2 px-5 py-2 bg-gold/20 text-gold hover:bg-gold hover:text-white rounded-lg text-sm font-semibold transition-colors {{ request()->routeIs('event-request.*') ? 'bg-gold text-white' : '' }}">Организовать мероприятие</a>
                     <a href="{{ route('ad-request.create') }}" class="px-5 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg text-sm font-semibold transition-colors">Разместить рекламу</a>
@@ -42,6 +43,7 @@
                 <a href="{{ route('home') }}" class="block px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-surface-lighter">Главная</a>
                 <a href="{{ route('events.index') }}" class="block px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-surface-lighter">Мероприятия</a>
                 <a href="{{ route('screens.index') }}" class="block px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-surface-lighter">Рекламные экраны</a>
+                <a href="{{ route('screens.map') }}" class="block px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-surface-lighter">Схема экранов</a>
                 <a href="{{ route('about') }}" class="block px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-surface-lighter">О ТРЦ</a>
                 <a href="{{ route('event-request.create') }}" class="block px-4 py-2 bg-gold/20 text-gold rounded-lg text-sm font-semibold text-center mt-2">Организовать мероприятие</a>
                 <a href="{{ route('ad-request.create') }}" class="block px-4 py-2 bg-accent rounded-lg text-sm font-semibold text-white text-center mt-2">Разместить рекламу</a>
@@ -86,6 +88,7 @@
                         <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Главная</a></li>
                         <li><a href="{{ route('events.index') }}" class="hover:text-white transition-colors">Мероприятия</a></li>
                         <li><a href="{{ route('screens.index') }}" class="hover:text-white transition-colors">Рекламные экраны</a></li>
+                        <li><a href="{{ route('screens.map') }}" class="hover:text-white transition-colors">Схема экранов</a></li>
                         <li><a href="{{ route('event-request.create') }}" class="hover:text-white transition-colors">Организовать мероприятие</a></li>
                         <li><a href="{{ route('ad-request.create') }}" class="hover:text-white transition-colors">Разместить рекламу</a></li>
                     </ul>

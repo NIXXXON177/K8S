@@ -9,7 +9,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Компания</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Контактное лицо</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Эл. почта</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Телефон</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ИНН</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Медиафайлов</th>

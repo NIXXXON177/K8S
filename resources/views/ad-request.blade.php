@@ -30,7 +30,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email *</label>
+                        <label for="email" class="block text-sm font-medium text-text-primary mb-2">Эл. почта *</label>
                         <input type="email" name="email" id="email" value="{{ old('email') }}" required
                             class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('email') border-danger @enderror">
                         @error('email')
@@ -70,7 +70,7 @@
                     </div>
                     <div>
                         <label for="file_name" class="block text-sm font-medium text-text-primary mb-2">Имя файла *</label>
-                        <input type="text" name="file_name" id="file_name" value="{{ old('file_name') }}" required placeholder="video.mp4"
+                        <input type="text" name="file_name" id="file_name" value="{{ old('file_name') }}" required placeholder="видео.mp4"
                             class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('file_name') border-danger @enderror">
                         @error('file_name')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
@@ -88,7 +88,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="width_px" class="block text-sm font-medium text-text-primary mb-2">Ширина (px) *</label>
+                        <label for="width_px" class="block text-sm font-medium text-text-primary mb-2">Ширина (пикс.) *</label>
                         <input type="number" name="width_px" id="width_px" value="{{ old('width_px') }}" required min="1"
                             class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('width_px') border-danger @enderror">
                         @error('width_px')
@@ -96,7 +96,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="height_px" class="block text-sm font-medium text-text-primary mb-2">Высота (px) *</label>
+                        <label for="height_px" class="block text-sm font-medium text-text-primary mb-2">Высота (пикс.) *</label>
                         <input type="number" name="height_px" id="height_px" value="{{ old('height_px') }}" required min="1"
                             class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('height_px') border-danger @enderror">
                         @error('height_px')
@@ -152,7 +152,7 @@
                 <ul class="space-y-2 text-sm text-text-secondary">
                     <li>• Формат: MP4</li>
                     <li>• Кодек: H264</li>
-                    <li>• Частота кадров: 25 fps</li>
+                    <li>• Частота кадров: 25 кадр/с</li>
                     <li>• Длительность: 15 или 30 секунд</li>
                     <li>• Максимальный размер: 400 МБ</li>
                 </ul>

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('page-title', 'Дашборд')
+@section('page-title', 'Панель управления')
 @section('content')
 <div class="space-y-8">
     {{-- Stats row 1 --}}
@@ -162,12 +162,16 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->tenant->company_name ?? '—' }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->start_date?->format('d.m.Y') ?? '—' }} — {{ $booking->end_date?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-6 py-4">
-                            @php $statusName = $booking->status->name ?? $booking->status ?? '—'; @endphp
+                            @php
+                                $rawStatus = is_object($booking->status) ? ($booking->status->name ?? $booking->status) : ($booking->status ?? '—');
+                                $statusMap = ['pending' => 'Ожидает', 'confirmed' => 'Подтверждено', 'cancelled' => 'Отменено'];
+                                $statusLabel = $statusMap[$rawStatus] ?? $rawStatus;
+                            @endphp
                             <span class="inline-flex rounded-full px-2 py-1 text-xs font-medium
-                                @if($statusName === 'Подтверждено' || $statusName === 'confirmed') bg-green-100 text-green-800
-                                @elseif($statusName === 'Ожидает' || $statusName === 'pending') bg-yellow-100 text-yellow-800
-                                @elseif($statusName === 'Отменено' || $statusName === 'cancelled') bg-red-100 text-red-800
-                                @else bg-gray-100 text-gray-800 @endif">{{ is_object($statusName) ? ($statusName->name ?? '—') : $statusName }}</span>
+                                @if($rawStatus === 'confirmed') bg-green-100 text-green-800
+                                @elseif($rawStatus === 'pending') bg-yellow-100 text-yellow-800
+                                @elseif($rawStatus === 'cancelled') bg-red-100 text-red-800
+                                @else bg-gray-100 text-gray-800 @endif">{{ $statusLabel }}</span>
                         </td>
                     </tr>
                     @empty

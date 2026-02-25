@@ -23,6 +23,7 @@ Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
 Route::get('/screens', [ScreenController::class, 'index'])->name('screens.index');
+Route::get('/screens/map', [ScreenController::class, 'map'])->name('screens.map');
 
 Route::get('/ad-request', [AdRequestController::class, 'create'])->name('ad-request.create');
 Route::post('/ad-request', [AdRequestController::class, 'store'])->name('ad-request.store');

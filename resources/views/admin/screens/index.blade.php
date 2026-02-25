@@ -8,7 +8,7 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Название</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Локация</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Расположение</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Разрешение</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ночная версия</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Активен</th>

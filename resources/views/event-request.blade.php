@@ -32,7 +32,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email *</label>
+                        <label for="email" class="block text-sm font-medium text-text-primary mb-2">Эл. почта *</label>
                         <input type="email" name="email" id="email" value="{{ old('email') }}" required
                             class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('email') border-danger @enderror">
                         @error('email')

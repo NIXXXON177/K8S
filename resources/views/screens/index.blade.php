@@ -4,9 +4,15 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="mb-10">
-        <h1 class="text-3xl font-bold text-white mb-4">Рекламные экраны</h1>
-        <p class="text-text-secondary max-w-3xl">В ТРЦ «Европейский» размещено 34 рекламных экрана в ключевых точках торгового центра. Выберите подходящий экран для размещения вашей рекламы.</p>
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-10">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-4">Рекламные экраны</h1>
+            <p class="text-text-secondary max-w-3xl">В ТРЦ «Европейский» размещено 34 рекламных экрана в ключевых точках торгового центра. Выберите подходящий экран для размещения вашей рекламы.</p>
+        </div>
+        <a href="{{ route('screens.map') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-lighter text-text-secondary hover:text-white rounded-lg text-sm font-medium transition-colors border border-surface-border shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Схема экранов
+        </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

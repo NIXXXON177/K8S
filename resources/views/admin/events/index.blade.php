@@ -18,7 +18,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Название</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Статус</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Даты</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Локация</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Расположение</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Посетители</th>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Действия</th>
                     </tr>

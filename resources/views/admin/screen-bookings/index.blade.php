@@ -27,20 +27,24 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->plays_per_day ?? '—' }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ number_format($booking->total_price ?? 0, 0) }} ₽</td>
                         <td class="px-6 py-4">
-                            @php $statusName = is_object($booking->status) ? ($booking->status->name ?? '—') : ($booking->status ?? '—'); @endphp
+                            @php
+                                $rawStatus = is_object($booking->status) ? ($booking->status->name ?? '—') : ($booking->status ?? '—');
+                                $statusMap = ['pending' => 'Ожидает', 'confirmed' => 'Подтверждено', 'cancelled' => 'Отменено'];
+                                $statusLabel = $statusMap[$rawStatus] ?? $rawStatus;
+                            @endphp
                             <span class="inline-flex rounded-full px-2 py-1 text-xs font-medium
-                                @if($statusName === 'Подтверждено' || $statusName === 'confirmed') bg-green-100 text-green-800
-                                @elseif($statusName === 'Ожидает' || $statusName === 'pending') bg-yellow-100 text-yellow-800
-                                @elseif($statusName === 'Отменено' || $statusName === 'cancelled') bg-red-100 text-red-800
-                                @else bg-gray-100 text-gray-800 @endif">{{ $statusName }}</span>
+                                @if($rawStatus === 'confirmed') bg-green-100 text-green-800
+                                @elseif($rawStatus === 'pending') bg-yellow-100 text-yellow-800
+                                @elseif($rawStatus === 'cancelled') bg-red-100 text-red-800
+                                @else bg-gray-100 text-gray-800 @endif">{{ $statusLabel }}</span>
                         </td>
                         <td class="px-6 py-4">
                             <form action="{{ route('admin.screen-bookings.update-status', $booking) }}" method="POST" class="flex items-center gap-2 justify-end">
                                 @csrf
                                 <select name="status" class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-primary">
-                                    <option value="pending" {{ $statusName === 'Ожидает' || $statusName === 'pending' ? 'selected' : '' }}>Ожидает</option>
-                                    <option value="confirmed" {{ $statusName === 'Подтверждено' || $statusName === 'confirmed' ? 'selected' : '' }}>Подтверждено</option>
-                                    <option value="cancelled" {{ $statusName === 'Отменено' || $statusName === 'cancelled' ? 'selected' : '' }}>Отменено</option>
+                                    <option value="pending" {{ $rawStatus === 'pending' ? 'selected' : '' }}>Ожидает</option>
+                                    <option value="confirmed" {{ $rawStatus === 'confirmed' ? 'selected' : '' }}>Подтверждено</option>
+                                    <option value="cancelled" {{ $rawStatus === 'cancelled' ? 'selected' : '' }}>Отменено</option>
                                 </select>
                                 <button type="submit" class="text-sm text-primary hover:text-primary-light font-medium">Изменить</button>
                             </form>
