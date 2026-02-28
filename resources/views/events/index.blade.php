@@ -12,7 +12,6 @@
         </a>
     </div>
 
-    {{-- Status filter --}}
     <div class="flex flex-wrap gap-2 mb-8">
         <a href="{{ route('events.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ !request('status') ? 'bg-accent text-white' : 'bg-surface-lighter text-text-secondary hover:text-white hover:bg-primary-lighter' }}">
             Все
@@ -24,7 +23,6 @@
         @endforeach
     </div>
 
-    {{-- Events grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($events as $event)
         <a href="{{ route('events.show', $event) }}" class="group block bg-card rounded-xl border border-surface-border overflow-hidden hover:bg-card-hover hover:border-accent/30 transition-all duration-200">

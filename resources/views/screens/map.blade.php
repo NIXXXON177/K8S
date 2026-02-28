@@ -15,7 +15,6 @@
         </a>
     </div>
 
-    {{-- Floor tabs --}}
     <div class="flex flex-wrap gap-2 mb-6" id="floor-tabs">
         @foreach($floors as $floor => $floorScreens)
         <button
@@ -33,9 +32,7 @@
         @endforeach
     </div>
 
-    {{-- Map area --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {{-- Visual map --}}
         <div class="lg:col-span-2">
             <div class="bg-card rounded-xl border border-surface-border overflow-hidden">
                 <div class="p-4 border-b border-surface-border flex items-center justify-between">
@@ -49,7 +46,6 @@
                     </div>
                 </div>
                 <div class="relative bg-surface" style="min-height: 500px;" id="map-container">
-                    {{-- Floor plan background grid --}}
                     <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -72,7 +68,6 @@
                             <span class="flex items-center justify-center w-8 h-8 rounded-full {{ $screen->has_night_version ? 'bg-gold' : 'bg-accent' }} text-white text-xs font-bold shadow-lg ring-2 ring-black/20 transition-transform group-hover:scale-125">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </span>
-                            {{-- Tooltip --}}
                             <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-surface-border rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl z-20">
                                 <span class="font-semibold">{{ $screen->name }}</span><br>
                                 <span class="text-text-secondary">{{ $screen->width_px }}×{{ $screen->height_px }} px</span>
@@ -84,7 +79,6 @@
                         </button>
                         @endforeach
 
-                        {{-- Zone labels --}}
                         @foreach($floorScreens->groupBy('zone_name') as $zoneName => $zoneScreens)
                         @php
                             $avgX = $zoneScreens->avg('pos_x');
@@ -101,7 +95,6 @@
             </div>
         </div>
 
-        {{-- Screen list sidebar --}}
         <div>
             <div class="bg-card rounded-xl border border-surface-border overflow-hidden">
                 <div class="p-4 border-b border-surface-border">

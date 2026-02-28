@@ -2,7 +2,6 @@
 @section('page-title', 'Панель управления')
 @section('content')
 <div class="space-y-8">
-    {{-- Stats row 1 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl shadow-sm border-l-4 border-primary p-5">
             <div class="flex items-center gap-3">
@@ -50,7 +49,6 @@
         </div>
     </div>
 
-    {{-- Stats row 2 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl shadow-sm border-l-4 border-success p-5">
             <div class="flex items-center gap-3">
@@ -98,7 +96,6 @@
         </div>
     </div>
 
-    {{-- Recent media table --}}
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200">
             <h2 class="text-lg font-semibold text-gray-800">Последние медиафайлы</h2>
@@ -140,7 +137,6 @@
         </div>
     </div>
 
-    {{-- Recent bookings table --}}
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200">
             <h2 class="text-lg font-semibold text-gray-800">Последние бронирования</h2>

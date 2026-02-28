@@ -8,7 +8,6 @@
     <p class="text-text-secondary mb-8">Подайте заявку на проведение мероприятия в ТРЦ «Европейский». Администрация рассмотрит вашу заявку и свяжется с вами.</p>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {{-- Form --}}
         <div class="lg:col-span-2">
             <form action="{{ route('event-request.store') }}" method="POST" class="bg-card rounded-xl border border-surface-border p-8">
                 @csrf
@@ -140,7 +139,6 @@
             </form>
         </div>
 
-        {{-- Info sidebar --}}
         <div class="space-y-6">
             <div class="bg-surface-lighter rounded-xl border border-surface-border p-6">
                 <h3 class="font-semibold text-lg text-white mb-4">Как это работает?</h3>

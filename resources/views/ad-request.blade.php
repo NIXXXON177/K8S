@@ -7,7 +7,6 @@
     <h1 class="text-3xl font-bold text-white mb-8">Разместить рекламу</h1>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {{-- Form --}}
         <div class="lg:col-span-2">
             <form action="{{ route('ad-request.store') }}" method="POST" class="bg-card rounded-xl border border-surface-border p-8">
                 @csrf
@@ -145,7 +144,6 @@
             </form>
         </div>
 
-        {{-- Info sidebar --}}
         <div class="space-y-6">
             <div class="bg-surface-lighter rounded-xl border border-surface-border p-6">
                 <h3 class="font-semibold text-lg text-white mb-4">Требования к видео</h3>

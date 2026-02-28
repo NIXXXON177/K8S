@@ -3,7 +3,6 @@
 @section('title', 'ТРЦ Европейский — Главная')
 
 @section('content')
-{{-- Hero Banner --}}
 <section class="bg-surface border-b border-surface-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         <div class="text-center max-w-3xl mx-auto">
@@ -21,7 +20,6 @@
     </div>
 </section>
 
-{{-- Ближайшие мероприятия --}}
 <section class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-white mb-8">Ближайшие мероприятия</h2>
@@ -60,7 +58,6 @@
     </div>
 </section>
 
-{{-- Рекламные экраны --}}
 <section class="py-16 bg-surface border-y border-surface-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-white mb-8">Рекламные экраны</h2>
@@ -93,7 +90,6 @@
     </div>
 </section>
 
-{{-- Stats --}}
 <section class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -113,7 +109,6 @@
     </div>
 </section>
 
-{{-- CTA blocks --}}
 <section class="py-16 bg-surface border-t border-surface-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="bg-card rounded-2xl border border-surface-border p-8 lg:p-10">

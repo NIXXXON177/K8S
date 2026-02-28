@@ -39,7 +39,6 @@
         @endforelse
     </div>
 
-    {{-- Video requirements info --}}
     <div class="mt-12 bg-card rounded-xl border border-surface-border p-8">
         <h3 class="text-xl font-semibold text-white mb-4">Требования к видео</h3>
         <ul class="space-y-2 text-text-secondary">

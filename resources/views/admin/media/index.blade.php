@@ -2,7 +2,6 @@
 @section('page-title', 'Медиафайлы')
 @section('content')
 <div class="space-y-6">
-    {{-- Filter --}}
     <div class="bg-white rounded-xl shadow-sm p-4">
         <form action="{{ route('admin.media.index') }}" method="GET" class="flex flex-wrap gap-3 items-center">
             <label class="text-sm font-medium text-gray-700">Фильтр по статусу:</label>

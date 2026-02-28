@@ -15,9 +15,8 @@ use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\ZoneBookingController;
 use Illuminate\Support\Facades\Route;
 
-// Public routes
 Route::get('/', HomeController::class)->name('home');
-Route::get('/about', fn () => view('about'))->name('about');
+Route::get('/about', fn() => view('about'))->name('about');
 
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
@@ -31,12 +30,10 @@ Route::post('/ad-request', [AdRequestController::class, 'store'])->name('ad-requ
 Route::get('/event-request', [EventRequestController::class, 'create'])->name('event-request.create');
 Route::post('/event-request', [EventRequestController::class, 'store'])->name('event-request.store');
 
-// Admin auth
 Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-// Admin panel
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 

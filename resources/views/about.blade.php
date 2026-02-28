@@ -7,27 +7,23 @@
     <h1 class="text-3xl font-bold text-white mb-10">О ТРЦ «Европейский»</h1>
 
     <div class="space-y-12">
-        {{-- О центре --}}
         <section class="bg-card rounded-xl border border-surface-border p-8">
             <h2 class="text-xl font-semibold text-white mb-4">О центре</h2>
             <p class="text-text-secondary leading-relaxed">ТРЦ «Европейский» — один из крупнейших торгово-развлекательных центров Москвы, расположенный на площади Киевского вокзала. В центре представлено более 392 магазинов, ресторанов и развлекательных заведений. Современная инфраструктура и удобное расположение делают «Европейский» популярным местом для шопинга и отдыха.</p>
         </section>
 
-        {{-- Мероприятия --}}
         <section class="bg-card rounded-xl border border-surface-border p-8">
             <h2 class="text-xl font-semibold text-white mb-4">Мероприятия в ТРЦ</h2>
             <p class="text-text-secondary leading-relaxed mb-4">ТРЦ «Европейский» регулярно проводит яркие мероприятия — концерты, выставки, детские праздники, промо-акции и презентации. Вы можете организовать своё мероприятие в одной из 8 зон торгового центра.</p>
             <a href="{{ route('event-request.create') }}" class="inline-flex items-center px-6 py-3 bg-gold/20 text-gold hover:bg-gold hover:text-white rounded-lg font-medium transition-colors border border-gold/30">Организовать мероприятие</a>
         </section>
 
-        {{-- Реклама в ТРЦ --}}
         <section class="bg-card rounded-xl border border-surface-border p-8">
             <h2 class="text-xl font-semibold text-white mb-4">Реклама в ТРЦ</h2>
             <p class="text-text-secondary leading-relaxed mb-4">В торговом центре размещено 34 рекламных экрана и 8 рекламных зон в ключевых точках с высокой проходимостью. Размещение рекламы в «Европейском» позволяет охватить широкую аудиторию посетителей.</p>
             <a href="{{ route('ad-request.create') }}" class="inline-flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition-colors">Разместить рекламу</a>
         </section>
 
-        {{-- Контакты --}}
         <section class="bg-surface-lighter rounded-xl border border-surface-border p-8">
             <h2 class="text-xl font-semibold text-white mb-6">Контакты</h2>
             <dl class="space-y-4">

@@ -10,7 +10,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-primary text-text-primary font-sans antialiased">
-    {{-- Header --}}
     <header class="bg-primary border-b border-surface-border sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 lg:h-20">
@@ -51,7 +50,6 @@
         </div>
     </header>
 
-    {{-- Flash Messages --}}
     @if(session('success'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
             <div class="bg-success/10 border border-success/30 text-success px-4 py-3 rounded-lg">{{ session('success') }}</div>
@@ -63,12 +61,10 @@
         </div>
     @endif
 
-    {{-- Content --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- Footer --}}
     <footer class="bg-surface border-t border-surface-border mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -98,14 +94,13 @@
                     <ul class="space-y-2 text-sm text-text-secondary">
                         <li>+7 (495) 921-34-44</li>
                         <li>Москва, площадь Киевского вокзала, 2</li>
-                        <li>ст. метро «Киевская»</li>\
+                        <li>ст. метро «Киевская»</li>
                         <li class="pt-2">Пн-Чт, Вс: 10:00-22:00</li>
                         <li>Пт-Сб: 10:00-23:00</li>
                     </ul>
                 </div>
             </div>
 
-            {{-- Yandex Map --}}
             <div class="mt-8 rounded-xl overflow-hidden border border-surface-border">
                 <iframe src="https://yandex.ru/map-widget/v1/?ll=37.565637%2C55.744574&z=16&mode=search&text=%D0%A2%D0%A0%D0%A6%20%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B5%D0%B9%D1%81%D0%BA%D0%B8%D0%B9&pt=37.565637%2C55.744574" width="100%" height="250" frameborder="0" allowfullscreen class="block"></iframe>
             </div>

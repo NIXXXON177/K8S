@@ -12,7 +12,6 @@
     </a>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {{-- File info --}}
         <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Информация о файле</h3>
             <dl class="space-y-3">
@@ -64,7 +63,6 @@
             @endif
         </div>
 
-        {{-- Actions --}}
         <div class="space-y-4">
             @if($statusName === 'На модерации')
             <div class="bg-white rounded-xl shadow-sm p-6">
