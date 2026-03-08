@@ -19,11 +19,25 @@ class ZoneBookingController extends Controller
 
     public function updateStatus(Request $request, ZoneBooking $zoneBooking)
     {
-        $request->validate([
+        $rules = [
             'status' => 'required|in:pending,confirmed,cancelled',
-        ]);
+        ];
 
-        $zoneBooking->update(['status' => $request->status]);
+        if ($request->status === 'cancelled') {
+            $rules['rejection_reason'] = 'required|string|max:1000';
+        }
+
+        $request->validate($rules);
+
+        $data = ['status' => $request->status];
+
+        if ($request->status === 'cancelled') {
+            $data['rejection_reason'] = $request->rejection_reason;
+        } else {
+            $data['rejection_reason'] = null;
+        }
+
+        $zoneBooking->update($data);
 
         return redirect()->back()->with('success', 'Статус бронирования зоны обновлён.');
     }

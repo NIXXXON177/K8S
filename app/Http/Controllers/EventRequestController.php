@@ -18,8 +18,9 @@ class EventRequestController extends Controller
     public function create()
     {
         $zones = Zone::where('is_active', true)->orderBy('name')->get();
+        $tenant = auth()->check() && auth()->user()->isTenant() ? auth()->user()->tenant : null;
 
-        return view('event-request', compact('zones'));
+        return view('event-request', compact('zones', 'tenant'));
     }
 
     public function store(Request $request)
@@ -41,28 +42,33 @@ class EventRequestController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
-            $tenantRole = Role::where('name', 'tenant')->first();
+            if (auth()->check() && auth()->user()->isTenant()) {
+                $user = auth()->user();
+                $tenant = $user->tenant;
+            } else {
+                $tenantRole = Role::where('name', 'tenant')->first();
 
-            $user = User::firstOrCreate(
-                ['email' => $request->email],
-                [
-                    'role_id' => $tenantRole->id,
-                    'name' => $request->contact_person,
-                    'password' => Hash::make('temp_' . uniqid()),
-                    'phone' => $request->phone,
-                ]
-            );
+                $user = User::firstOrCreate(
+                    ['email' => $request->email],
+                    [
+                        'role_id' => $tenantRole->id,
+                        'name' => $request->contact_person,
+                        'password' => Hash::make('temp_' . uniqid()),
+                        'phone' => $request->phone,
+                    ]
+                );
 
-            $tenant = Tenant::firstOrCreate(
-                ['user_id' => $user->id],
-                [
-                    'company_name' => $request->company_name,
-                    'contact_person' => $request->contact_person,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'inn' => $request->inn,
-                ]
-            );
+                $tenant = Tenant::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'company_name' => $request->company_name,
+                        'contact_person' => $request->contact_person,
+                        'phone' => $request->phone,
+                        'email' => $request->email,
+                        'inn' => $request->inn,
+                    ]
+                );
+            }
 
             $pendingStatus = EventStatus::where('name', 'Планируется')->first();
 

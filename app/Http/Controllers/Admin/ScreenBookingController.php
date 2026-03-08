@@ -19,13 +19,27 @@ class ScreenBookingController extends Controller
 
     public function updateStatus(Request $request, ScreenBooking $screenBooking)
     {
-        $request->validate([
+        $rules = [
             'status' => 'required|in:pending,confirmed,cancelled',
-        ]);
+        ];
 
-        $screenBooking->update(['status' => $request->status]);
+        if ($request->status === 'cancelled') {
+            $rules['rejection_reason'] = 'required|string|max:1000';
+        }
 
-        $statusLabels = ['pending' => 'ожидание', 'confirmed' => 'подтверждено', 'cancelled' => 'отменено'];
+        $request->validate($rules);
+
+        $data = ['status' => $request->status];
+
+        if ($request->status === 'cancelled') {
+            $data['rejection_reason'] = $request->rejection_reason;
+        } else {
+            $data['rejection_reason'] = null;
+        }
+
+        $screenBooking->update($data);
+
+        $statusLabels = ['pending' => 'ожидание', 'confirmed' => 'подтверждено', 'cancelled' => 'отклонено'];
 
         return redirect()->back()->with('success', "Статус бронирования изменён на \"{$statusLabels[$request->status]}\".");
     }

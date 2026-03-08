@@ -2,28 +2,28 @@
 @section('page-title', 'Бронирования зон')
 @section('content')
 <div class="space-y-6">
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <div class="bg-card rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-surface-border">
+                <thead class="bg-surface">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Зона</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Арендатор</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Мероприятие</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Даты</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Сумма</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Статус</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Действия</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Зона</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Арендатор</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Мероприятие</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Даты</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Сумма</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase">Статус</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase">Действия</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-card divide-y divide-surface-border">
                     @forelse($bookings as $booking)
                     <tr>
-                        <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $booking->zone->name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->tenant->company_name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->event->title ?? '—' }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $booking->start_date?->format('d.m.Y') ?? '—' }} — {{ $booking->end_date?->format('d.m.Y') ?? '—' }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ number_format($booking->total_price ?? 0, 0) }} ₽</td>
+                        <td class="px-6 py-4 text-sm font-medium text-text-primary">{{ $booking->zone->name ?? '—' }}</td>
+                        <td class="px-6 py-4 text-sm text-text-secondary">{{ $booking->tenant->company_name ?? '—' }}</td>
+                        <td class="px-6 py-4 text-sm text-text-secondary">{{ $booking->event->title ?? '—' }}</td>
+                        <td class="px-6 py-4 text-sm text-text-secondary">{{ $booking->start_date?->format('d.m.Y') ?? '—' }} — {{ $booking->end_date?->format('d.m.Y') ?? '—' }}</td>
+                        <td class="px-6 py-4 text-sm text-text-secondary">{{ number_format($booking->total_price ?? 0, 0) }} ₽</td>
                         <td class="px-6 py-4">
                             @php
                                 $rawStatus = is_object($booking->status) ? ($booking->status->name ?? '—') : ($booking->status ?? '—');
@@ -31,36 +31,64 @@
                                 $statusLabel = $statusMap[$rawStatus] ?? $rawStatus;
                             @endphp
                             <span class="inline-flex rounded-full px-2 py-1 text-xs font-medium
-                                @if($rawStatus === 'confirmed') bg-green-100 text-green-800
-                                @elseif($rawStatus === 'pending') bg-yellow-100 text-yellow-800
-                                @elseif($rawStatus === 'cancelled') bg-red-100 text-red-800
-                                @else bg-gray-100 text-gray-800 @endif">{{ $statusLabel }}</span>
+                                @if($rawStatus === 'confirmed') bg-success/20 text-success
+                                @elseif($rawStatus === 'pending') bg-warning/20 text-warning
+                                @elseif($rawStatus === 'cancelled') bg-danger/20 text-danger
+                                @else bg-surface-lighter text-text-primary @endif">{{ $statusLabel }}</span>
                         </td>
                         <td class="px-6 py-4">
-                            <form action="{{ route('admin.zone-bookings.update-status', $booking) }}" method="POST" class="flex items-center gap-2 justify-end">
+                            <form action="{{ route('admin.zone-bookings.update-status', $booking) }}" method="POST" class="space-y-2">
                                 @csrf
-                                <select name="status" class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-primary">
-                                    <option value="pending" {{ $rawStatus === 'pending' ? 'selected' : '' }}>Ожидает</option>
-                                    <option value="confirmed" {{ $rawStatus === 'confirmed' ? 'selected' : '' }}>Подтверждено</option>
-                                    <option value="cancelled" {{ $rawStatus === 'cancelled' ? 'selected' : '' }}>Отменено</option>
-                                </select>
-                                <button type="submit" class="text-sm text-primary hover:text-primary-light font-medium">Изменить</button>
+                                <div class="flex items-center gap-2 justify-end">
+                                    <select name="status" class="text-sm border border-input-border rounded px-2 py-1 focus:ring-2 focus:ring-accent zone-status-select" data-booking-id="{{ $booking->id }}">
+                                        <option value="pending" {{ $rawStatus === 'pending' ? 'selected' : '' }}>Ожидает</option>
+                                        <option value="confirmed" {{ $rawStatus === 'confirmed' ? 'selected' : '' }}>Подтверждено</option>
+                                        <option value="cancelled" {{ $rawStatus === 'cancelled' ? 'selected' : '' }}>Отменено</option>
+                                    </select>
+                                    <button type="submit" class="text-sm text-accent hover:text-accent-hover font-medium">Изменить</button>
+                                </div>
+                                <div class="zone-rejection-reason-field hidden" id="zone-rejection-reason-{{ $booking->id }}">
+                                    <textarea name="rejection_reason" rows="2" placeholder="Причина отклонения (обязательно)"
+                                        class="w-full text-sm px-3 py-1.5 bg-input-bg border border-input-border text-text-primary rounded focus:ring-2 focus:ring-accent">{{ $booking->rejection_reason }}</textarea>
+                                </div>
+                                @if($booking->rejection_reason && $rawStatus === 'cancelled')
+                                <div class="text-xs text-danger text-right">Причина: {{ $booking->rejection_reason }}</div>
+                                @endif
                             </form>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-500">Нет бронирований</td>
+                        <td colspan="7" class="px-6 py-8 text-center text-text-secondary">Нет бронирований</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
         @if($bookings->hasPages())
-        <div class="px-6 py-4 border-t border-gray-200">
+        <div class="px-6 py-4 border-t border-surface-border">
             {{ $bookings->links() }}
         </div>
         @endif
     </div>
 </div>
+@push('scripts')
+<script>
+document.querySelectorAll('.zone-status-select').forEach(function(select) {
+    const bookingId = select.dataset.bookingId;
+    const reasonField = document.getElementById('zone-rejection-reason-' + bookingId);
+
+    function toggleReason() {
+        if (select.value === 'cancelled') {
+            reasonField?.classList.remove('hidden');
+        } else {
+            reasonField?.classList.add('hidden');
+        }
+    }
+
+    toggleReason();
+    select.addEventListener('change', toggleReason);
+});
+</script>
+@endpush
 @endsection

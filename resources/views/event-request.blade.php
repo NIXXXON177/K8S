@@ -13,43 +13,50 @@
                 @csrf
 
                 <h2 class="text-lg font-semibold text-white mb-6 pb-4 border-b border-surface-border">Данные организатора</h2>
+
+                @if($tenant)
+                <div class="mb-6 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                    <p class="text-sm text-accent">Вы авторизованы как <strong>{{ $tenant->company_name }}</strong>. Реквизиты заполнены автоматически.</p>
+                </div>
+                @endif
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <label for="company_name" class="block text-sm font-medium text-text-primary mb-2">Название компании / организатор *</label>
-                        <input type="text" name="company_name" id="company_name" value="{{ old('company_name') }}" required
-                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('company_name') border-danger @enderror">
+                        <input type="text" name="company_name" id="company_name" value="{{ old('company_name', $tenant?->company_name) }}" required {{ $tenant ? 'readonly' : '' }}
+                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('company_name') border-danger @enderror {{ $tenant ? 'opacity-70' : '' }}">
                         @error('company_name')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
                         <label for="contact_person" class="block text-sm font-medium text-text-primary mb-2">Контактное лицо *</label>
-                        <input type="text" name="contact_person" id="contact_person" value="{{ old('contact_person') }}" required
-                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('contact_person') border-danger @enderror">
+                        <input type="text" name="contact_person" id="contact_person" value="{{ old('contact_person', $tenant?->contact_person) }}" required {{ $tenant ? 'readonly' : '' }}
+                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('contact_person') border-danger @enderror {{ $tenant ? 'opacity-70' : '' }}">
                         @error('contact_person')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-text-primary mb-2">Эл. почта *</label>
-                        <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('email') border-danger @enderror">
+                        <input type="email" name="email" id="email" value="{{ old('email', $tenant?->email) }}" required {{ $tenant ? 'readonly' : '' }}
+                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('email') border-danger @enderror {{ $tenant ? 'opacity-70' : '' }}">
                         @error('email')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
                         <label for="phone" class="block text-sm font-medium text-text-primary mb-2">Телефон *</label>
-                        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" required
-                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('phone') border-danger @enderror">
+                        <input type="tel" name="phone" id="phone" value="{{ old('phone', $tenant?->phone) }}" required {{ $tenant ? 'readonly' : '' }}
+                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('phone') border-danger @enderror {{ $tenant ? 'opacity-70' : '' }}">
                         @error('phone')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="md:col-span-2">
-                        <label for="inn" class="block text-sm font-medium text-text-primary mb-2">ИНН (необязательно)</label>
-                        <input type="text" name="inn" id="inn" value="{{ old('inn') }}" maxlength="12"
-                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('inn') border-danger @enderror">
+                        <label for="inn" class="block text-sm font-medium text-text-primary mb-2">ИНН {{ $tenant ? '' : '(необязательно)' }}</label>
+                        <input type="text" name="inn" id="inn" value="{{ old('inn', $tenant?->inn) }}" maxlength="12" {{ $tenant ? 'readonly' : '' }}
+                            class="w-full px-4 py-2.5 rounded-lg bg-input-bg border border-input-border text-text-primary placeholder-text-muted focus:ring-2 focus:ring-accent focus:border-accent @error('inn') border-danger @enderror {{ $tenant ? 'opacity-70' : '' }}">
                         @error('inn')
                         <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                         @enderror

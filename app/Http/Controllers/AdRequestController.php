@@ -18,8 +18,9 @@ class AdRequestController extends Controller
     public function create()
     {
         $screens = Screen::where('is_active', true)->orderBy('name')->get();
+        $tenant = auth()->check() && auth()->user()->isTenant() ? auth()->user()->tenant : null;
 
-        return view('ad-request', compact('screens'));
+        return view('ad-request', compact('screens', 'tenant'));
     }
 
     public function store(Request $request)
@@ -42,28 +43,33 @@ class AdRequestController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
-            $tenantRole = Role::where('name', 'tenant')->first();
+            if (auth()->check() && auth()->user()->isTenant()) {
+                $user = auth()->user();
+                $tenant = $user->tenant;
+            } else {
+                $tenantRole = Role::where('name', 'tenant')->first();
 
-            $user = User::firstOrCreate(
-                ['email' => $request->email],
-                [
-                    'role_id' => $tenantRole->id,
-                    'name' => $request->contact_person,
-                    'password' => Hash::make('temp_' . uniqid()),
-                    'phone' => $request->phone,
-                ]
-            );
+                $user = User::firstOrCreate(
+                    ['email' => $request->email],
+                    [
+                        'role_id' => $tenantRole->id,
+                        'name' => $request->contact_person,
+                        'password' => Hash::make('temp_' . uniqid()),
+                        'phone' => $request->phone,
+                    ]
+                );
 
-            $tenant = Tenant::firstOrCreate(
-                ['user_id' => $user->id],
-                [
-                    'company_name' => $request->company_name,
-                    'contact_person' => $request->contact_person,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'inn' => $request->inn,
-                ]
-            );
+                $tenant = Tenant::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'company_name' => $request->company_name,
+                        'contact_person' => $request->contact_person,
+                        'phone' => $request->phone,
+                        'email' => $request->email,
+                        'inn' => $request->inn,
+                    ]
+                );
+            }
 
             $pendingStatus = MediaStatus::where('name', 'На модерации')->first();
 

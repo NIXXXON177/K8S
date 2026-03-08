@@ -20,6 +20,7 @@ class ScreenBooking extends Model
         'total_price',
         'status',
         'notes',
+        'rejection_reason',
     ];
 
     protected function casts(): array

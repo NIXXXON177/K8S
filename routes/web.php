@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdRequestController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\EventRequestController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ScreenController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Organization\DashboardController as OrgDashboardController;
+use App\Http\Controllers\Organization\AdRequestController as OrgAdRequestController;
+use App\Http\Controllers\Organization\EventRequestController as OrgEventRequestController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
@@ -15,27 +15,34 @@ use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\ZoneBookingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', HomeController::class)->name('home');
-Route::get('/about', fn() => view('about'))->name('about');
+Route::get('/', fn() => redirect()->route('login'));
 
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
-Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/screens', [ScreenController::class, 'index'])->name('screens.index');
-Route::get('/screens/map', [ScreenController::class, 'map'])->name('screens.map');
+Route::prefix('organization')->middleware(['auth', 'organization'])->name('organization.')->group(function () {
+    Route::get('/', OrgDashboardController::class)->name('dashboard');
 
-Route::get('/ad-request', [AdRequestController::class, 'create'])->name('ad-request.create');
-Route::post('/ad-request', [AdRequestController::class, 'store'])->name('ad-request.store');
+    Route::get('ad-requests', [OrgAdRequestController::class, 'index'])->name('ad-requests.index');
+    Route::get('ad-requests/create', [OrgAdRequestController::class, 'create'])->name('ad-requests.create');
+    Route::post('ad-requests', [OrgAdRequestController::class, 'store'])->name('ad-requests.store');
+    Route::get('ad-requests/{screenBooking}', [OrgAdRequestController::class, 'show'])->name('ad-requests.show');
 
-Route::get('/event-request', [EventRequestController::class, 'create'])->name('event-request.create');
-Route::post('/event-request', [EventRequestController::class, 'store'])->name('event-request.store');
+    Route::get('event-requests', [OrgEventRequestController::class, 'index'])->name('event-requests.index');
+    Route::get('event-requests/create', [OrgEventRequestController::class, 'create'])->name('event-requests.create');
+    Route::post('event-requests', [OrgEventRequestController::class, 'store'])->name('event-requests.store');
+    Route::get('event-requests/{zoneBooking}', [OrgEventRequestController::class, 'show'])->name('event-requests.show');
+});
 
-Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AuthController::class, 'login']);
+Route::get('/admin', [AuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
-    Route::get('/', DashboardController::class)->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::resource('events', AdminEventController::class)->except('show');
 
