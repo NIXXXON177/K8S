@@ -42,7 +42,7 @@
                             <form action="{{ route('admin.screen-bookings.update-status', $booking) }}" method="POST" class="space-y-2">
                                 @csrf
                                 <div class="flex items-center gap-2 justify-end">
-                                    <select name="status" class="text-sm border border-input-border rounded px-2 py-1 focus:ring-2 focus:ring-accent booking-status-select" data-booking-id="{{ $booking->id }}">
+                                    <select name="status" class="text-sm bg-input-bg text-text-primary border border-input-border rounded px-2 py-1 focus:ring-2 focus:ring-accent booking-status-select" data-booking-id="{{ $booking->id }}">
                                         <option value="pending" {{ $rawStatus === 'pending' ? 'selected' : '' }}>Ожидает</option>
                                         <option value="confirmed" {{ $rawStatus === 'confirmed' ? 'selected' : '' }}>Подтверждено</option>
                                         <option value="cancelled" {{ $rawStatus === 'cancelled' ? 'selected' : '' }}>Отменено</option>

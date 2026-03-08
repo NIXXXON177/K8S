@@ -35,13 +35,6 @@
                     Заявки на мероприятия
                 </a>
 
-                <div class="pt-4 mt-4 border-t border-white/10">
-                    <a href="https://y8shikage.github.io/EuroReact/home" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gold hover:bg-white/5 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        Проверка видео
-                        <svg class="w-3 h-3 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </a>
-                </div>
             </nav>
 
             <div class="absolute bottom-0 left-0 right-0 px-3 py-4 border-t border-white/10">
@@ -112,6 +105,72 @@
 
         toggle?.addEventListener('click', openSidebar);
         overlay?.addEventListener('click', closeSidebar);
+    </script>
+    <div id="siteModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div id="siteModalOverlay" class="absolute inset-0 bg-black/60"></div>
+        <div class="relative bg-card rounded-xl border border-surface-border shadow-xl max-w-sm w-full p-6 animate-fade-in">
+            <div id="siteModalIcon" class="mx-auto mb-4 w-12 h-12 rounded-full flex items-center justify-center"></div>
+            <h3 id="siteModalTitle" class="text-center text-lg font-semibold text-text-primary mb-2"></h3>
+            <p id="siteModalMessage" class="text-center text-sm text-text-secondary mb-6"></p>
+            <div id="siteModalActions" class="flex gap-3 justify-center"></div>
+        </div>
+    </div>
+
+    <script>
+    function siteAlert(message, type = 'info') {
+        return new Promise(resolve => {
+            const modal = document.getElementById('siteModal');
+            const icon = document.getElementById('siteModalIcon');
+            const title = document.getElementById('siteModalTitle');
+            const msg = document.getElementById('siteModalMessage');
+            const actions = document.getElementById('siteModalActions');
+
+            const config = {
+                error: { title: 'Ошибка', color: 'danger', svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' },
+                success: { title: 'Успешно', color: 'success', svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>' },
+                warning: { title: 'Внимание', color: 'warning', svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' },
+                info: { title: 'Информация', color: 'accent', svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' },
+            }[type] || { title: 'Информация', color: 'accent', svg: '' };
+
+            icon.className = `mx-auto mb-4 w-12 h-12 rounded-full flex items-center justify-center bg-${config.color}/20`;
+            icon.innerHTML = `<svg class="w-6 h-6 text-${config.color}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${config.svg}</svg>`;
+            title.textContent = config.title;
+            msg.textContent = message;
+            actions.innerHTML = `<button class="px-6 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors" id="siteModalOk">Понятно</button>`;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const close = () => { modal.classList.add('hidden'); modal.classList.remove('flex'); resolve(); };
+            document.getElementById('siteModalOk').addEventListener('click', close);
+            document.getElementById('siteModalOverlay').addEventListener('click', close);
+        });
+    }
+
+    function siteConfirm(message, confirmText = 'Да', cancelText = 'Отмена') {
+        return new Promise(resolve => {
+            const modal = document.getElementById('siteModal');
+            const icon = document.getElementById('siteModalIcon');
+            const title = document.getElementById('siteModalTitle');
+            const msg = document.getElementById('siteModalMessage');
+            const actions = document.getElementById('siteModalActions');
+
+            icon.className = 'mx-auto mb-4 w-12 h-12 rounded-full flex items-center justify-center bg-warning/20';
+            icon.innerHTML = '<svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+            title.textContent = 'Подтверждение';
+            msg.textContent = message;
+            actions.innerHTML = `<button class="px-5 py-2 bg-surface-lighter text-text-primary rounded-lg text-sm font-medium hover:bg-surface-border transition-colors" id="siteModalCancel">${cancelText}</button>
+                <button class="px-5 py-2 bg-danger text-white rounded-lg text-sm font-medium hover:bg-danger/80 transition-colors" id="siteModalConfirm">${confirmText}</button>`;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const close = (val) => { modal.classList.add('hidden'); modal.classList.remove('flex'); resolve(val); };
+            document.getElementById('siteModalConfirm').addEventListener('click', () => close(true));
+            document.getElementById('siteModalCancel').addEventListener('click', () => close(false));
+            document.getElementById('siteModalOverlay').addEventListener('click', () => close(false));
+        });
+    }
     </script>
     @stack('scripts')
 </body>

@@ -28,6 +28,7 @@ Route::prefix('organization')->middleware(['auth', 'organization'])->name('organ
 
     Route::get('ad-requests', [OrgAdRequestController::class, 'index'])->name('ad-requests.index');
     Route::get('ad-requests/create', [OrgAdRequestController::class, 'create'])->name('ad-requests.create');
+    Route::get('ad-requests/screen-bookings/{screen}', [OrgAdRequestController::class, 'screenBookings'])->name('ad-requests.screen-bookings');
     Route::post('ad-requests', [OrgAdRequestController::class, 'store'])->name('ad-requests.store');
     Route::get('ad-requests/{screenBooking}', [OrgAdRequestController::class, 'show'])->name('ad-requests.show');
 
@@ -52,6 +53,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     Route::get('media', [MediaController::class, 'index'])->name('media.index');
     Route::get('media/{mediaFile}', [MediaController::class, 'show'])->name('media.show');
+    Route::get('media/{mediaFile}/stream', [MediaController::class, 'stream'])->name('media.stream');
     Route::post('media/{mediaFile}/approve', [MediaController::class, 'approve'])->name('media.approve');
     Route::post('media/{mediaFile}/reject', [MediaController::class, 'reject'])->name('media.reject');
 

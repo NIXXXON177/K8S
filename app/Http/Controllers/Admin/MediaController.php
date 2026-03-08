@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\MediaFile;
 use App\Models\MediaStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -36,12 +38,33 @@ class MediaController extends Controller
 
         $mediaFile->update([
             'status_id' => $approvedStatus->id,
-            'reviewed_by' => auth()->id(),
+            'reviewed_by' => Auth::id(),
             'reviewed_at' => now(),
             'rejection_reason' => null,
         ]);
 
         return redirect()->back()->with('success', 'Медиафайл одобрен.');
+    }
+
+    public function stream(MediaFile $mediaFile)
+    {
+        if (!Storage::disk('public')->exists($mediaFile->file_path)) {
+            abort(404, 'Видеофайл не найден.');
+        }
+
+        $path = Storage::disk('public')->path($mediaFile->file_path);
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $mimeMap = [
+            'mp4' => 'video/mp4',
+            'webm' => 'video/webm',
+            'mov' => 'video/quicktime',
+            'avi' => 'video/x-msvideo',
+            'mkv' => 'video/x-matroska',
+        ];
+
+        return response()->file($path, [
+            'Content-Type' => $mimeMap[$ext] ?? 'video/mp4',
+        ]);
     }
 
     public function reject(Request $request, MediaFile $mediaFile)
@@ -54,7 +77,7 @@ class MediaController extends Controller
 
         $mediaFile->update([
             'status_id' => $rejectedStatus->id,
-            'reviewed_by' => auth()->id(),
+            'reviewed_by' => Auth::id(),
             'reviewed_at' => now(),
             'rejection_reason' => $request->rejection_reason,
         ]);

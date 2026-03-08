@@ -47,6 +47,12 @@
                     Войти
                 </button>
             </form>
+
+            <div class="mt-4 text-center">
+                <a href="{{ route('login') }}" class="text-sm text-text-muted hover:text-text-primary transition-colors">
+                    Войти как арендатор &rarr;
+                </a>
+            </div>
         </div>
         <div class="text-center mt-6 text-xs"><span class="shiny-text">Разработчик: Кудряшов Никола, ИСП-029</span></div>
     </div>

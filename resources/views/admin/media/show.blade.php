@@ -11,6 +11,20 @@
         Назад к списку
     </a>
 
+    @if($mediaFile->file_path && \Illuminate\Support\Facades\Storage::disk('public')->exists($mediaFile->file_path))
+    <div class="mb-6 bg-card rounded-xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-surface-border">
+            <h3 class="font-semibold text-text-primary">Предпросмотр видео</h3>
+        </div>
+        <div class="p-6 flex justify-center bg-black/50">
+            <video controls class="max-w-full max-h-[480px] rounded-lg" preload="metadata">
+                <source src="{{ route('admin.media.stream', $mediaFile) }}" type="video/mp4">
+                Ваш браузер не поддерживает воспроизведение видео.
+            </video>
+        </div>
+    </div>
+    @endif
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 bg-card rounded-xl p-6">
             <h3 class="text-lg font-semibold text-text-primary mb-4">Информация о файле</h3>
@@ -47,12 +61,12 @@
                     @php $screen = $sb->screen ?? null; @endphp
                     @if($screen)
                     <li class="flex items-center justify-between py-2 px-3 bg-surface rounded-lg">
-                        <span>{{ $screen->name }} ({{ $screen->width_px ?? 0 }} × {{ $screen->height_px ?? 0 }})</span>
+                        <span class="text-text-primary">{{ $screen->name }} ({{ $screen->width_px ?? 0 }} × {{ $screen->height_px ?? 0 }})</span>
                         @if(method_exists($mediaFile, 'matchesScreen'))
                             @if($mediaFile->matchesScreen($screen))
                             <span class="text-xs text-success font-medium">✓ Совпадает</span>
                             @else
-                            <span class="text-xs text-gold font-medium">Не совпадает</span>
+                            <span class="text-xs text-warning font-medium">⚠ Разрешение отличается</span>
                             @endif
                         @endif
                     </li>

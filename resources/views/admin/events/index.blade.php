@@ -38,10 +38,10 @@
                         <td class="px-6 py-4 text-sm text-text-secondary">{{ $event->expected_visitors ?? '—' }}</td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('admin.events.edit', $event) }}" class="text-accent hover:text-accent-hover font-medium text-sm">Редактировать</a>
-                            <form action="{{ route('admin.events.destroy', $event) }}" method="POST" class="inline ml-3" onsubmit="return confirm('Удалить мероприятие?');">
+                            <form action="{{ route('admin.events.destroy', $event) }}" method="POST" class="inline ml-3 delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-danger hover:text-danger/80 font-medium text-sm">Удалить</button>
+                                <button type="button" class="text-danger hover:text-danger/80 font-medium text-sm delete-btn">Удалить</button>
                             </form>
                         </td>
                     </tr>
@@ -60,4 +60,16 @@
         @endif
     </div>
 </div>
+@push('scripts')
+<script>
+document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async function() {
+        const confirmed = await siteConfirm('Вы уверены, что хотите удалить это мероприятие?', 'Удалить', 'Отмена');
+        if (confirmed) {
+            this.closest('.delete-form').submit();
+        }
+    });
+});
+</script>
+@endpush
 @endsection
