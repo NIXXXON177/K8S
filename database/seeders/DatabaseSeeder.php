@@ -40,7 +40,6 @@ class DatabaseSeeder extends Seeder
     {
         $roles = [
             ['name' => 'admin', 'description' => 'Администратор системы'],
-            ['name' => 'manager', 'description' => 'Менеджер ТРЦ'],
             ['name' => 'tenant', 'description' => 'Арендатор'],
         ];
 
@@ -60,15 +59,6 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        User::create([
-            'role_id' => 2,
-            'name' => 'Иванов Пётр Сергеевич',
-            'email' => 'manager@trc.ru',
-            'password' => Hash::make('password'),
-            'phone' => '+7 (495) 100-00-02',
-            'is_active' => true,
-        ]);
-
         $tenantUsers = [
             ['name' => 'Смирнова Анна Владимировна', 'email' => 'smirnova@company.ru', 'phone' => '+7 (495) 200-00-01'],
             ['name' => 'Козлов Дмитрий Игоревич', 'email' => 'kozlov@brand.ru', 'phone' => '+7 (495) 200-00-02'],
@@ -79,7 +69,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($tenantUsers as $user) {
             User::create([
-                'role_id' => 3,
+                'role_id' => 2,
                 'name' => $user['name'],
                 'email' => $user['email'],
                 'password' => Hash::make('password'),
@@ -172,11 +162,11 @@ class DatabaseSeeder extends Seeder
     private function seedTenants(): void
     {
         $tenants = [
-            ['user_id' => 3, 'company_name' => 'ООО "МедиаГрупп"', 'contact_person' => 'Смирнова А.В.', 'phone' => '+7 (495) 200-00-01', 'email' => 'info@mediagroup.ru', 'address' => 'г. Москва, ул. Тверская, д. 10', 'inn' => '7701234567'],
-            ['user_id' => 4, 'company_name' => 'ИП Козлов Д.И.', 'contact_person' => 'Козлов Д.И.', 'phone' => '+7 (495) 200-00-02', 'email' => 'kozlov@brand.ru', 'address' => 'г. Москва, ул. Арбат, д. 5', 'inn' => '770987654321'],
-            ['user_id' => 5, 'company_name' => 'ООО "РитейлПро"', 'contact_person' => 'Петрова Е.А.', 'phone' => '+7 (495) 200-00-03', 'email' => 'info@retailpro.ru', 'address' => 'г. Москва, Кутузовский пр-т, д. 20', 'inn' => '7702345678'],
-            ['user_id' => 6, 'company_name' => 'ООО "ВидеоАрт"', 'contact_person' => 'Волков А.Н.', 'phone' => '+7 (495) 200-00-04', 'email' => 'info@videoart.ru', 'address' => 'г. Москва, ул. Новый Арбат, д. 15', 'inn' => '7703456789'],
-            ['user_id' => 7, 'company_name' => 'ООО "ФэшнМолл"', 'contact_person' => 'Новикова М.Д.', 'phone' => '+7 (495) 200-00-05', 'email' => 'info@fashionmall.ru', 'address' => 'г. Москва, Ленинский пр-т, д. 30', 'inn' => '7704567890'],
+            ['user_id' => 2, 'company_name' => 'ООО "МедиаГрупп"', 'contact_person' => 'Смирнова А.В.', 'phone' => '+7 (495) 200-00-01', 'email' => 'info@mediagroup.ru', 'address' => 'г. Москва, ул. Тверская, д. 10', 'inn' => '7701234567'],
+            ['user_id' => 3, 'company_name' => 'ИП Козлов Д.И.', 'contact_person' => 'Козлов Д.И.', 'phone' => '+7 (495) 200-00-02', 'email' => 'kozlov@brand.ru', 'address' => 'г. Москва, ул. Арбат, д. 5', 'inn' => '770987654321'],
+            ['user_id' => 4, 'company_name' => 'ООО "РитейлПро"', 'contact_person' => 'Петрова Е.А.', 'phone' => '+7 (495) 200-00-03', 'email' => 'info@retailpro.ru', 'address' => 'г. Москва, Кутузовский пр-т, д. 20', 'inn' => '7702345678'],
+            ['user_id' => 5, 'company_name' => 'ООО "ВидеоАрт"', 'contact_person' => 'Волков А.Н.', 'phone' => '+7 (495) 200-00-04', 'email' => 'info@videoart.ru', 'address' => 'г. Москва, ул. Новый Арбат, д. 15', 'inn' => '7703456789'],
+            ['user_id' => 6, 'company_name' => 'ООО "ФэшнМолл"', 'contact_person' => 'Новикова М.Д.', 'phone' => '+7 (495) 200-00-05', 'email' => 'info@fashionmall.ru', 'address' => 'г. Москва, Ленинский пр-т, д. 30', 'inn' => '7704567890'],
         ];
 
         foreach ($tenants as $tenant) {
@@ -187,11 +177,11 @@ class DatabaseSeeder extends Seeder
     private function seedEvents(): void
     {
         $events = [
-            ['title' => 'Весенняя распродажа 2026', 'description' => 'Масштабная весенняя распродажа со скидками до 70%', 'status_id' => 1, 'organizer_id' => 2, 'start_date' => '2026-03-01 10:00:00', 'end_date' => '2026-03-15 22:00:00', 'location' => 'Весь ТРЦ', 'expected_visitors' => 50000, 'budget' => 500000.00],
-            ['title' => 'Детский фестиваль "Весёлые каникулы"', 'description' => 'Развлекательная программа для детей: аниматоры, мастер-классы, конкурсы', 'status_id' => 2, 'organizer_id' => 2, 'start_date' => '2026-03-22 11:00:00', 'end_date' => '2026-03-29 20:00:00', 'location' => 'Зал Москва, 3 этаж', 'expected_visitors' => 15000, 'budget' => 200000.00],
+            ['title' => 'Весенняя распродажа 2026', 'description' => 'Масштабная весенняя распродажа со скидками до 70%', 'status_id' => 1, 'organizer_id' => 1, 'start_date' => '2026-03-01 10:00:00', 'end_date' => '2026-03-15 22:00:00', 'location' => 'Весь ТРЦ', 'expected_visitors' => 50000, 'budget' => 500000.00],
+            ['title' => 'Детский фестиваль "Весёлые каникулы"', 'description' => 'Развлекательная программа для детей: аниматоры, мастер-классы, конкурсы', 'status_id' => 2, 'organizer_id' => 1, 'start_date' => '2026-03-22 11:00:00', 'end_date' => '2026-03-29 20:00:00', 'location' => 'Зал Москва, 3 этаж', 'expected_visitors' => 15000, 'budget' => 200000.00],
             ['title' => 'Выставка современного искусства', 'description' => 'Экспозиция работ молодых художников', 'status_id' => 3, 'organizer_id' => 1, 'start_date' => '2026-02-15 10:00:00', 'end_date' => '2026-03-01 21:00:00', 'location' => 'Галерея, 2 этаж', 'expected_visitors' => 8000, 'budget' => 150000.00],
-            ['title' => 'Ночь шопинга', 'description' => 'Ночная распродажа с DJ и развлекательной программой', 'status_id' => 4, 'organizer_id' => 2, 'start_date' => '2026-01-25 20:00:00', 'end_date' => '2026-01-26 02:00:00', 'location' => 'Весь ТРЦ', 'expected_visitors' => 20000, 'budget' => 300000.00],
-            ['title' => 'Фуд-фестиваль "Вкусы мира"', 'description' => 'Дегустация блюд от ресторанов ТРЦ', 'status_id' => 1, 'organizer_id' => 2, 'start_date' => '2026-04-10 12:00:00', 'end_date' => '2026-04-12 21:00:00', 'location' => 'Фуд-корт, 3 этаж', 'expected_visitors' => 12000, 'budget' => 180000.00],
+            ['title' => 'Ночь шопинга', 'description' => 'Ночная распродажа с DJ и развлекательной программой', 'status_id' => 4, 'organizer_id' => 1, 'start_date' => '2026-01-25 20:00:00', 'end_date' => '2026-01-26 02:00:00', 'location' => 'Весь ТРЦ', 'expected_visitors' => 20000, 'budget' => 300000.00],
+            ['title' => 'Фуд-фестиваль "Вкусы мира"', 'description' => 'Дегустация блюд от ресторанов ТРЦ', 'status_id' => 1, 'organizer_id' => 1, 'start_date' => '2026-04-10 12:00:00', 'end_date' => '2026-04-12 21:00:00', 'location' => 'Фуд-корт, 3 этаж', 'expected_visitors' => 12000, 'budget' => 180000.00],
         ];
 
         foreach ($events as $event) {
